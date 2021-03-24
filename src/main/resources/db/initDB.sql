@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS user_roles;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS dishes;
+DROP TABLE IF EXISTS restaurants;
 DROP SEQUENCE IF EXISTS global_seq;
 
 
@@ -10,12 +10,12 @@ CREATE SEQUENCE global_seq START WITH 100000;
 
 CREATE TABLE users
 (
-    id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name             VARCHAR                           NOT NULL,
-    email            VARCHAR                           NOT NULL,
-    password         VARCHAR                           NOT NULL,
-    registered       DATE                DEFAULT now() NOT NULL,
-    enabled          BOOL                DEFAULT TRUE  NOT NULL
+    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name       VARCHAR                           NOT NULL,
+    email      VARCHAR                           NOT NULL,
+    password   VARCHAR                           NOT NULL,
+    registered DATE                DEFAULT now() NOT NULL,
+    enabled    BOOL                DEFAULT TRUE  NOT NULL
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
@@ -36,10 +36,10 @@ CREATE TABLE restaurants
 
 CREATE TABLE dishes
 (
-    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name       TEXT    NOT NULL,
-    local_date DATE    NOT NULL,
-    price      INT     NOT NULL,
+    id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name          TEXT    NOT NULL,
+    local_date    DATE    NOT NULL,
+    price         INT     NOT NULL,
     restaurant_id INTEGER NOT NULL,
     CONSTRAINT dishes_unique_idx UNIQUE (restaurant_id, local_date, price),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
@@ -47,11 +47,11 @@ CREATE TABLE dishes
 
 CREATE TABLE votes
 (
-    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    user_id    INTEGER NOT NULL,
+    id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    user_id       INTEGER NOT NULL,
     restaurant_id INTEGER NOT NULL,
-    local_date DATE    NOT NULL,
-    CONSTRAINT user_date_unique_idx UNIQUE (user_id, local_date),
+    local_date    DATE    NOT NULL,
+    CONSTRAINT user_date_unique_idx UNIQUE (user_id, restaurant_id, local_date),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

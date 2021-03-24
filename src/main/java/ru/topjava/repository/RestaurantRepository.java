@@ -17,7 +17,7 @@ public interface RestaurantRepository {
     Restaurant get(int id);
 
     // null if not found
-    Restaurant getByName(String name);
+    List<Restaurant> getByName(String name);
 
     List<Restaurant> getAll();
 }

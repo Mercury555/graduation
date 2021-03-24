@@ -1,16 +1,24 @@
 package ru.topjava.model;
 
+import javax.persistence.*;
 import java.util.Set;
 
-
+@Entity
+//@NamedEntityGraph(name = Restaurant.GRAPH_WITH_VOTES_DISHES, attributeNodes =
+//        {
+//                @NamedAttributeNode("votes"),
+//                @NamedAttributeNode("dishes")
+//        })
+@Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
     private String description;
 
     //@JsonManagedReference(value = "restaurant-votes")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Vote> votes;
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Dish> dishes;
 
     public Restaurant() {

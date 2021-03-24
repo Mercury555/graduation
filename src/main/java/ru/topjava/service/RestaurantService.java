@@ -1,32 +1,37 @@
 package ru.topjava.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.topjava.model.Restaurant;
 import ru.topjava.repository.RestaurantRepository;
+import ru.topjava.util.ValidationUtil;
 
 import java.util.List;
+
+import static ru.topjava.util.ValidationUtil.*;
 
 @Service
 public class RestaurantService {
 
-    @Autowired
+
     private RestaurantRepository repository;
 
-    public Restaurant get(int id) {
-        return repository.get(id);
+    public Restaurant create(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        return repository.save(restaurant);
     }
 
-    public Restaurant create(Restaurant restaurant) {
-            return repository.save(restaurant);
+    public Restaurant get(int id) {
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     public void delete(int id) {
-        repository.delete(id);
+        checkNotFoundWithId(repository.delete(id), id);
     }
 
-    public Restaurant update(Restaurant restaurant) {
-        return repository.save(restaurant);
+    public void update(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
 
     public List<Restaurant> getAll() {

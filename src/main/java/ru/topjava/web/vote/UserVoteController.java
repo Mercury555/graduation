@@ -19,14 +19,14 @@ public class UserVoteController {
         int userId = SecurityUtil.authUserId();
         Vote vote = new Vote(LocalDate.now());
         log.info("create {} for restaurant {} by user {}", vote, restaurantId, userId);
-        service.create(vote, restaurantId, userId);
+        service.save(restaurantId, userId);
     }
 
 
     public void deleteByNow() {
         int userId = SecurityUtil.authUserId();
         log.info("delete vote for date {} by user {}", LocalDate.now(), userId);
-        service.deleteByDate(LocalDate.now(), userId);
+//        service.deleteByDate(LocalDate.now(), userId);
     }
 
 

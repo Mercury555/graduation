@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeUtil {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static final String DATE_PATTERN = "yyyy-MM-dd";
+    public static final LocalTime DEFAULT_VOTE_DEADLINE_TIME = LocalTime.of(11,0,0);
+    private static LocalTime deadlineVoteTime = DEFAULT_VOTE_DEADLINE_TIME;
     private DateTimeUtil() {
     }
 
@@ -30,6 +32,10 @@ public class DateTimeUtil {
 
     public static LocalDateTime createDateTime(@Nullable LocalDate date, LocalDate defaultDate, LocalTime time) {
         return LocalDateTime.of(date != null ? date : defaultDate, time);
+    }
+
+    public static LocalTime getDeadlineVoteTime() {
+        return deadlineVoteTime;
     }
 }
 

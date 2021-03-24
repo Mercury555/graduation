@@ -14,8 +14,15 @@ import static ru.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class UserService {
 
-    @Autowired
+
     private UserRepository repository;
+
+    public UserService() {
+    }
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     public User create(User user) {
         return repository.save(user);

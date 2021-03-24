@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface VoteRepository {
     // null if not found, when updated
-    Vote save(Vote vote, int restaurantId, int userId);
+    Vote save(Vote vote);
 
     Vote findOne(Integer id);
 
@@ -17,8 +17,11 @@ public interface VoteRepository {
     Vote getVoteToday(LocalDate date, int id);
 
     // null if not found
-    List<Vote> getAllVoteByUser(LocalDate startDate, LocalDate endDate, int userid);
+    List<Vote> getVoteBetween(LocalDate startDate, LocalDate endDate, int userId);
 
-    void delete(LocalDate now, int userId);
+    List<Vote> getAllVoteByUser(int userId);
+
+    boolean delete(int id, int userId);
+
 
 }
