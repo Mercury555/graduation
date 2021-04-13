@@ -1,4 +1,4 @@
-package ru.topjava.repository.datajpa;
+package ru.topjava.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.topjava.model.User;
+
 
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
@@ -17,7 +18,7 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     User getByEmail(String email);
 
-    @EntityGraph(attributePaths = {"votes", "roles"}, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = {"meals", "roles"})
     @Query("SELECT u FROM User u WHERE u.id=?1")
-    User getWithVotes(int id);
+    User getWithMeals(int id);
 }

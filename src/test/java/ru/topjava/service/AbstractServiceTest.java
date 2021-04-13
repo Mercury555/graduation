@@ -19,6 +19,8 @@ import ru.topjava.util.ValidationUtil;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThrows;
+import static ru.topjava.util.ValidationUtil.getRootCause;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -54,12 +56,13 @@ public abstract class AbstractServiceTest {
         results.setLength(0);
     }
 
-    public static <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {
-        try {
-            runnable.run();
-            Assert.fail("Expected " + exceptionClass.getName());
-        } catch (Exception e) {
-            Assert.assertThat(ValidationUtil.getRootCause(e), instanceOf(exceptionClass));
-        }
+    protected <T extends Throwable> void validateRootCause(Class<T> rootExceptionClass, Runnable runnable) {
+        assertThrows(rootExceptionClass, () -> {
+            try {
+                runnable.run();
+            } catch (Exception e) {
+                throw getRootCause(e);
+            }
+        });
     }
 }

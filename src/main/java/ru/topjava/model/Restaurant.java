@@ -1,6 +1,8 @@
 package ru.topjava.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -12,11 +14,14 @@ import java.util.Set;
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
+    @NotBlank
+    @Size(min = 2, max = 100)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    //@JsonManagedReference(value = "restaurant-votes")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<Vote> votes;
+//    //@JsonManagedReference(value = "restaurant-votes")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+//    private Set<Vote> votes;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Dish> dishes;
@@ -40,14 +45,14 @@ public class Restaurant extends AbstractNamedEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
-    }
+//
+//    public Set<Vote> getVotes() {
+//        return votes;
+//    }
+//
+//    public void setVotes(Set<Vote> votes) {
+//        this.votes = votes;
+//    }
 
     public void setDishes(Set<Dish> dishes) {
         this.dishes = dishes;
@@ -61,8 +66,6 @@ public class Restaurant extends AbstractNamedEntity {
     public String toString() {
         return "Restaurant{" +
                 "description='" + description + '\'' +
-                ", votes=" + votes +
-                ", dishes=" + dishes +
                 ", name='" + name + '\'' +
                 '}';
     }

@@ -4,17 +4,18 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
-@NamedQueries(value = {
-        @NamedQuery(name = Dish.ALL_SORTED, query = "SELECT d FROM Dish d WHERE d.restaurant.id=:restId ORDER BY d.local_date DESC"),
-        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id AND d.id=:restId"),
-        @NamedQuery(name = Dish.GET_BY_NAME, query = "SELECT d FROM Dish d " +
-                "WHERE d.name=:name ORDER BY d.local_date DESC")
-//        @NamedQuery(name = Meal.UPDATE, query = "UPDATE Meal m SET m.dateTime = :datetime, m.calories= :calories," +
-//                "m.description=:desc where m.id=:id and m.user.id=:userId")
-})
+//@NamedQueries(value = {
+//        @NamedQuery(name = Dish.ALL_SORTED, query = "SELECT d FROM Dish d WHERE d.restaurant.id=:restId ORDER BY d.local_date DESC"),
+//        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id AND d.id=:restId"),
+//        @NamedQuery(name = Dish.GET_BY_NAME, query = "SELECT d FROM Dish d " +
+//                "WHERE d.name=:name ORDER BY d.local_date DESC")
+////        @NamedQuery(name = Meal.UPDATE, query = "UPDATE Meal m SET m.dateTime = :datetime, m.calories= :calories," +
+////                "m.description=:desc where m.id=:id and m.user.id=:userId")
+//})
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "local_date", "name"}, name = "dishes_unique_restaurant_date_name_idx")})
 public class Dish extends AbstractNamedEntity {
@@ -24,9 +25,11 @@ public class Dish extends AbstractNamedEntity {
     public static final String GET_BY_NAME = "Dish.getByName";
 
     @JoinColumn(name = "local_date", nullable = false)
+    @NotNull
     private LocalDate local_date;
 
     @JoinColumn(name = "price", nullable = false)
+    @NotNull
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -96,9 +99,9 @@ public class Dish extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Dish{" +
-                "localDate=" + local_date +
-                ", price=" + price +
-                ", restaurant=" + restaurant +
+                "local_date=" + local_date +
+                ", price=" + Integer.toString(price) +
+//                ", restaurant=" + restaurant +
                 ", name='" + name + '\'' +
                 '}';
     }

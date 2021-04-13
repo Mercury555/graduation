@@ -20,4 +20,6 @@ public interface RestaurantRepository {
     List<Restaurant> getByName(String name);
 
     List<Restaurant> getAll();
+
+
 }

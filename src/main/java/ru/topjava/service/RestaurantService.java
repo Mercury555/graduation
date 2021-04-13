@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.topjava.model.Restaurant;
 import ru.topjava.repository.RestaurantRepository;
-import ru.topjava.util.ValidationUtil;
 
 import java.util.List;
 
@@ -14,7 +13,11 @@ import static ru.topjava.util.ValidationUtil.*;
 public class RestaurantService {
 
 
-    private RestaurantRepository repository;
+    private final RestaurantRepository repository;
+
+    public RestaurantService(RestaurantRepository repository) {
+        this.repository = repository;
+    }
 
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
@@ -36,5 +39,9 @@ public class RestaurantService {
 
     public List<Restaurant> getAll() {
             return repository.getAll();
+    }
+
+    public List<Restaurant> getByName(String  name){
+        return repository.getByName(name);
     }
 }

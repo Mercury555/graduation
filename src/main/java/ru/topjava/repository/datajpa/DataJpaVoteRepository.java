@@ -1,6 +1,5 @@
 package ru.topjava.repository.datajpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.topjava.model.Vote;
 import ru.topjava.repository.VoteRepository;
@@ -12,33 +11,25 @@ import java.util.List;
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
 
+    private CrudVoteRepository voteRepository;
+    private CrudRestaurantRepository restaurantRepository;
 
-    private  CrudVoteRepository voteRepository;
-
-
-    private  CrudRestaurantRepository restaurantRepository;
-
-
-    private  CrudDishRepository dishRepository;
-
-    public DataJpaVoteRepository() {
-    }
-
-    public DataJpaVoteRepository(CrudVoteRepository crudVoteRepository, CrudRestaurantRepository restaurantRepository, CrudDishRepository dishRepository) {
+    public DataJpaVoteRepository(CrudVoteRepository crudVoteRepository, CrudRestaurantRepository restaurantRepository) {
         this.voteRepository = crudVoteRepository;
         this.restaurantRepository = restaurantRepository;
-        this.dishRepository = dishRepository;
     }
 
     @Override
-    public Vote save(Vote vote) {
-       return voteRepository.save(vote);
+    public Vote save(Vote vote, int userId) {
+        if (!vote.isNew() && get(vote.getId(), userId) == null) {
+            return null;
+        }
+        return voteRepository.save(vote);
     }
 
     @Override
     public Vote findOne(Integer id) {
-       return voteRepository.getOne(id);
-
+        return voteRepository.getOne(id);
     }
 
     @Override
@@ -46,9 +37,11 @@ public class DataJpaVoteRepository implements VoteRepository {
         return voteRepository.getVoteByDate(date, userId);
     }
 
+    //
     @Override
     public List<Vote> getVoteBetween(LocalDate startDate, LocalDate endDate, int userid) {
         return voteRepository.getVoteBetween(startDate, endDate, userid);
+//        return null;
     }
 
     @Override
@@ -58,6 +51,11 @@ public class DataJpaVoteRepository implements VoteRepository {
 
     @Override
     public boolean delete(int id, int userId) throws NotFoundException {
-       return voteRepository.delete(id, userId) != 0;
+        return voteRepository.delete(id, userId) != 0;
+    }
+
+    @Override
+    public Vote get(int id, int userId) {
+        return voteRepository.get(id, userId);
     }
 }

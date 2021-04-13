@@ -10,7 +10,7 @@ import ru.topjava.model.Dish;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
+public interface DishRepository extends JpaRepository<Dish, Integer> {
     @Modifying
     @Transactional
     @Query("DELETE FROM Dish d WHERE d.id=:id AND d.restaurant.id=:restId")
@@ -23,6 +23,12 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Query("SELECT d FROM Dish d WHERE d.name LIKE %:name%")
     List<Dish> getByName(@Param("name") String name);
 
-    @Query("SELECT d FROM Dish d WHERE d.id=:Id")
-    Dish getById(@Param("Id") int Id);
+    @Query("SELECT d FROM Dish d WHERE d.id=:id")
+    Dish getById(@Param("id") int id);
+
+//    @Override
+//    Dish findOne(Integer id);
+
+    @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id=:id AND d.restaurant.id=:restId")
+    Dish get(@Param("id") int id, @Param("restId") int restId);
 }

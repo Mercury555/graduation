@@ -3,6 +3,7 @@ package ru.topjava.web.vote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.topjava.model.Vote;
+import ru.topjava.service.RestaurantService;
 import ru.topjava.service.VoteService;
 import ru.topjava.web.SecurityUtil;
 
@@ -14,10 +15,11 @@ public class UserVoteController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private VoteService service;
+    private RestaurantService restaurantService;
 
     public void createOrUpdate(int restaurantId) {
         int userId = SecurityUtil.authUserId();
-        Vote vote = new Vote(LocalDate.now());
+        Vote vote = new Vote(LocalDate.now(), restaurantService.get(restaurantId));
         log.info("create {} for restaurant {} by user {}", vote, restaurantId, userId);
         service.save(restaurantId, userId);
     }

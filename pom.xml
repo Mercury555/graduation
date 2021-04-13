@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.version>5.2.12.RELEASE</spring.version>
+        <spring.version>5.3.4</spring.version>
         <spring-data-jpa.version>2.4.5</spring-data-jpa.version>
         <postgresql.version>42.2.8</postgresql.version>
         <!-- Logging -->
@@ -24,7 +24,7 @@
         <hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b11</javax-el.version>
         <!--    Tests  -->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.2</junit.version>
     </properties>
 
     <build>

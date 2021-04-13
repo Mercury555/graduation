@@ -1,5 +1,7 @@
 package ru.topjava.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -32,11 +34,11 @@ public class AbstractBaseEntity {
         if (this == o) {
             return true;
         }
-        if (o == null || !getClass().equals(this)) {
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
             return false;
         }
         AbstractBaseEntity that = (AbstractBaseEntity) o;
-        return getId() != null && getId().equals(that.getId());
+        return id != null && id.equals(that.id);
     }
 
     @Override
@@ -51,5 +53,6 @@ public class AbstractBaseEntity {
     @Override
     public String toString() {
         return String.format("Entity of type %s with id: %s", getClass().getName(), getId());
-    }
+//        return getClass().getSimpleName() + ":" + id;
+        }
 }

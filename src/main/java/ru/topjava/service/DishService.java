@@ -3,8 +3,8 @@ package ru.topjava.service;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.topjava.model.Dish;
-import ru.topjava.repository.DishRepository;
 import ru.topjava.repository.RestaurantRepository;
+import ru.topjava.repository.datajpa.DishRepository;
 
 import java.util.List;
 
@@ -24,12 +24,13 @@ public class DishService {
     public Dish create(Dish dish, int rest_id) {
         Assert.notNull(dish, "dish must not be null");
         dish.setRestaurant(restaurantRepository.get(rest_id));
-        return dishRepository.save(dish, rest_id);
+        return dishRepository.save(dish);
     }
 
     public void update(Dish dish, int rest_id) {
         Assert.notNull(dish, "dish must not be null");
-        checkNotFoundWithId(dishRepository.save(dish, rest_id), dish.getId());
+        dish.setRestaurant(restaurantRepository.get(rest_id));
+        checkNotFoundWithId(dishRepository.save(dish), dish.getId());
     }
 
     public Dish get(int id, int rest_id) {
@@ -37,7 +38,7 @@ public class DishService {
     }
 
     public void delete(int id, int rest_id) {
-        checkNotFoundWithId(dishRepository.delete(id, rest_id), id);
+        checkNotFoundWithId(dishRepository.delete(id, rest_id) != 0, id);
     }
 
     public List<Dish> getAllByRestoran(int rest_id) {

@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface VoteRepository {
     // null if not found, when updated
-    Vote save(Vote vote);
+    Vote save(Vote vote, int userId);
 
     Vote findOne(Integer id);
 
@@ -23,5 +23,5 @@ public interface VoteRepository {
 
     boolean delete(int id, int userId);
 
-
+    Vote get(int id, int userId);
 }
