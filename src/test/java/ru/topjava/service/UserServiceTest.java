@@ -49,7 +49,7 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testGetNotFound()  {
+    public void testGetNotFound() {
         assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND));
     }
 

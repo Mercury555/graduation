@@ -1,10 +1,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--    <context:component-scan base-package="ru.**.repository"/>-->
+    <!--    <context:component-scan base-package="ru.**.repository"/>-->
+
+    <import resource="spring-cache.xml"/>
     <context:component-scan base-package="ru.**.service"/>
     <context:component-scan base-package="ru.**.web"/>
 

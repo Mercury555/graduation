@@ -5,6 +5,7 @@ import ru.topjava.model.Vote;
 import ru.topjava.repository.RestaurantRepository;
 import ru.topjava.repository.VoteRepository;
 import ru.topjava.repository.datajpa.DishRepository;
+import ru.topjava.service.UserService;
 import ru.topjava.service.VoteService;
 
 import java.time.LocalDate;
@@ -26,15 +27,13 @@ public class Main {
 
             Arrays.stream(appCtx.getBeanDefinitionNames()).forEach(System.out::println);
 
-            VoteService service = appCtx.getBean(VoteService.class);
+            final UserService userService = appCtx.getBean(UserService.class);
+            userService.getAll().forEach(System.out::println);
+            userService.get(100002);
+            userService.delete(100002);
+            System.out.println("----------------------------------------------------------------");
+            userService.getAll().forEach(System.out::println);
 
-            System.out.println(service.getBetween(LocalDate.of(2021, Month.MAY, 28), LocalDate.of(2021, Month.MAY, 29), 100003));
-            Restaurant RESTAURANT2 = new Restaurant(100005, "Restaurant 2", "sea_food");
-            Vote VOTE5 = new Vote(100017, of(2021, Month.MAY, 28), RESTAURANT2);
-            Vote VOTE6 = new Vote(100018, of(2021, Month.MAY, 29), RESTAURANT2);
-
-            List<Vote> VOTES_BETWEEN = Arrays.asList(VOTE6, VOTE5);
-            System.out.println(VOTES_BETWEEN);
 
         }
     }

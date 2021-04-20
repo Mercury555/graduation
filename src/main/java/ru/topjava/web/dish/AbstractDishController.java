@@ -33,13 +33,10 @@ public abstract class AbstractDishController {
         service.delete(id,restaurant_id);
     }
 
-
-
     public void update(Dish dish, int restaurant_id) {
         log.info("update {} with id={}", dish, restaurant_id);
         assureIdConsistent(dish, restaurant_id);
         service.update(dish, restaurant_id);
     }
-
 
 }

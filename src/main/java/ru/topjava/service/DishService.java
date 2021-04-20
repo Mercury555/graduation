@@ -1,5 +1,7 @@
 package ru.topjava.service;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.topjava.model.Dish;
@@ -21,12 +23,14 @@ public class DishService {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     public Dish create(Dish dish, int rest_id) {
         Assert.notNull(dish, "dish must not be null");
         dish.setRestaurant(restaurantRepository.get(rest_id));
         return dishRepository.save(dish);
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     public void update(Dish dish, int rest_id) {
         Assert.notNull(dish, "dish must not be null");
         dish.setRestaurant(restaurantRepository.get(rest_id));
@@ -37,15 +41,18 @@ public class DishService {
         return checkNotFoundWithId(dishRepository.get(id, rest_id), id);
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     public void delete(int id, int rest_id) {
         checkNotFoundWithId(dishRepository.delete(id, rest_id) != 0, id);
     }
 
+    @Cacheable("dishes")
     public List<Dish> getAllByRestoran(int rest_id) {
         return dishRepository.getAllByRestaurant(rest_id);
     }
 
-    public List<Dish> getByName(String name){
+    @Cacheable("dishes")
+    public List<Dish> getByName(String name) {
         return dishRepository.getByName(name);
     }
 

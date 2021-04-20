@@ -2,6 +2,7 @@ package ru.topjava.service;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -9,6 +10,8 @@ import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -32,6 +35,14 @@ public abstract class AbstractServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setup() {
+        cacheManager.getCache("users").clear();
+    }
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
