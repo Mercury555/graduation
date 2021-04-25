@@ -46,7 +46,7 @@ public class RestaurantService {
         return repository.getAll();
     }
 
-    @Cacheable("restaurants")
+
     public List<Restaurant> getByName(String name) {
         return repository.getByName(name);
     }

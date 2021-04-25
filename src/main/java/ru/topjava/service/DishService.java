@@ -51,7 +51,7 @@ public class DishService {
         return dishRepository.getAllByRestaurant(rest_id);
     }
 
-    @Cacheable("dishes")
+//    @Cacheable("dishes")
     public List<Dish> getByName(String name) {
         return dishRepository.getByName(name);
     }

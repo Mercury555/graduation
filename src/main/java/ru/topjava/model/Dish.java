@@ -1,11 +1,15 @@
 package ru.topjava.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+
+import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 
 
 //@NamedQueries(value = {
@@ -18,6 +22,7 @@ import java.time.LocalDate;
 //})
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "local_date", "name"}, name = "dishes_unique_restaurant_date_name_idx")})
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Dish extends AbstractNamedEntity {
 
     public static final String DELETE = "Dish.delete";

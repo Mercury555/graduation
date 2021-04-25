@@ -25,14 +25,16 @@ public class Main {
         try (ConfigurableApplicationContext appCtx =
                      new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml")) {
 
-            Arrays.stream(appCtx.getBeanDefinitionNames()).forEach(System.out::println);
+//            Arrays.stream(appCtx.getBeanDefinitionNames()).forEach(System.out::println);
 
             final UserService userService = appCtx.getBean(UserService.class);
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             userService.getAll().forEach(System.out::println);
-            userService.get(100002);
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             userService.delete(100002);
             System.out.println("----------------------------------------------------------------");
             userService.getAll().forEach(System.out::println);
+            System.out.println("----------------------------------------------------------------");
 
 
         }

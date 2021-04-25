@@ -36,14 +36,6 @@ public abstract class AbstractServiceTest {
 
     private static StringBuilder results = new StringBuilder();
 
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Before
-    public void setup() {
-        cacheManager.getCache("users").clear();
-    }
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -67,7 +59,7 @@ public abstract class AbstractServiceTest {
         results.setLength(0);
     }
 
-    protected <T extends Throwable> void validateRootCause(Class<T> rootExceptionClass, Runnable runnable) {
+    <T extends Throwable> void validateRootCause(Class<T> rootExceptionClass, Runnable runnable) {
         assertThrows(rootExceptionClass, () -> {
             try {
                 runnable.run();

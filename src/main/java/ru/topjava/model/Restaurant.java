@@ -1,5 +1,8 @@
 package ru.topjava.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +15,7 @@ import java.util.Set;
 //                @NamedAttributeNode("dishes")
 //        })
 @Table(name = "restaurants")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Restaurant extends AbstractNamedEntity {
 
     @NotBlank
