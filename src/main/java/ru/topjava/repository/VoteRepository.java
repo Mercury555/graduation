@@ -24,4 +24,8 @@ public interface VoteRepository {
     boolean delete(int id, int userId);
 
     Vote get(int id, int userId);
+
+    default Vote getWithUser(int id, int userId){
+        throw new UnsupportedOperationException();
+    }
 }

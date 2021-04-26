@@ -36,8 +36,6 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return repository.findById(id).orElse(null);
     }
 
-
-
     @Override
     public List<Restaurant> getByName(String name) {
         return repository.findByName(name);
@@ -46,5 +44,10 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     @Override
     public List<Restaurant> getAll() {
         return repository.findAll(SORT_NAME);
+    }
+
+    @Override
+    public Restaurant getWithDishes(int id) {
+        return repository.getWithDishes(id);
     }
 }

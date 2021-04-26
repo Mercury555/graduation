@@ -3,6 +3,7 @@ package ru.topjava.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.topjava.VoteTestData;
 import ru.topjava.model.Role;
 import ru.topjava.model.User;
 import ru.topjava.util.exception.NotFoundException;
@@ -81,11 +82,16 @@ public class UserServiceTest extends AbstractServiceTest {
         validateRootCause(ConstraintViolationException.class, () -> service.create(new User(null, "User1", "user1@mail.ru", "password1", true, null, Set.of())));
     }
 
+    @Test
+    public void getWithVotes() {
+        User user = service.getWithVotes(USER_ID);
+        USER_MATCHER.assertMatch(user, USER);
+        VoteTestData.VOTE_MATCHER.assertMatch(user.getVotes(), VoteTestData.VOTE1, VoteTestData.VOTE4);
+    }
+
 //    @Test
-//    public void getWithVotes() {
-//        User admin = service.getWithVotes(ADMIN_ID);
-//        USER_MATCHER.assertMatch(admin, ADMIN);
-//        VOTE_MATCHER.assertMatch(admin.getVotes(), VOTE2);
-//
+//    void getWithMealsNotFound() {
+//        Assertions.assertThrows(NotFoundException.class,
+//                () -> service.getWithVotes(1));
 //    }
 }

@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.topjava.model.User;
 
-
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional
@@ -20,5 +19,5 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     @EntityGraph(attributePaths = {"meals", "roles"})
     @Query("SELECT u FROM User u WHERE u.id=?1")
-    User getWithMeals(int id);
+    User getWithVotes(int id);
 }

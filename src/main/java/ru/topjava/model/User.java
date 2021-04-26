@@ -48,9 +48,9 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-//    private List<Vote> votes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Vote> votes;
 
 
     public User() {
@@ -116,14 +116,14 @@ public class User extends AbstractNamedEntity {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles.isEmpty() ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
-//
-//    public List<Vote> getVotes() {
-//        return votes;
-//    }
-//
-//    public void setVotes(List<Vote> vote) {
-//        this.votes = vote;
-//    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> vote) {
+        this.votes = vote;
+    }
 
     @Override
     public String toString() {

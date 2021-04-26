@@ -50,4 +50,8 @@ public class RestaurantService {
     public List<Restaurant> getByName(String name) {
         return repository.getByName(name);
     }
+
+    public Restaurant getWithDishes(int id){
+        return checkNotFoundWithId(repository.getWithDishes(id), id);
+    }
 }

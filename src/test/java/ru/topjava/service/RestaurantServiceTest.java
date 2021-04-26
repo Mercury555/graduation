@@ -2,12 +2,15 @@ package ru.topjava.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.topjava.DishTestData;
 import ru.topjava.model.Restaurant;
 import ru.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
 
 import static org.junit.Assert.assertThrows;
+import static ru.topjava.DishTestData.DISH1;
+import static ru.topjava.DishTestData.DISH4;
 import static ru.topjava.RestaurantTestData.*;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
@@ -66,5 +69,12 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void getByName() {
        RESTAURANT_MATCHER.assertMatch(service.getByName("Restaurant 3"), RESTAURANT3);
+    }
+
+    @Test
+    public void getWithDishes(){
+        Restaurant restaurant = service.getWithDishes(RESTAURANT1_ID);
+        RESTAURANT_MATCHER.assertMatch(restaurant, RESTAURANT1);
+        DishTestData.DISH_MATCHER.assertMatch(restaurant.getDishes(), DISH1, DISH4);
     }
 }

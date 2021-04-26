@@ -58,4 +58,8 @@ public class DataJpaVoteRepository implements VoteRepository {
     public Vote get(int id, int userId) {
         return voteRepository.get(id, userId);
     }
+
+    public Vote getWithUser(int id, int userId){
+        return voteRepository.getWithUser(id, userId);
+    }
 }

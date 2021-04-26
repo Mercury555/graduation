@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.topjava.model.Restaurant;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.LinkedTransferQueue;
 
 @Transactional(readOnly = true)
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
@@ -21,6 +19,6 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Query("SELECT r FROM Restaurant r  WHERE r.name LIKE %:name%")
     List<Restaurant> findByName(@Param("name") String name);
 
-
-
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes WHERE r.id=:id")
+    Restaurant getWithDishes(@Param("id")int id);
 }

@@ -13,7 +13,7 @@ import static ru.topjava.RestaurantTestData.RESTAURANT2;
 import static ru.topjava.model.AbstractBaseEntity.START_SEQ;
 
 public class VoteTestData {
-    public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("user");
+    public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Vote.class, "user", "restaurant");
 
     public static final int VOTE1_ID = START_SEQ + 13;
 

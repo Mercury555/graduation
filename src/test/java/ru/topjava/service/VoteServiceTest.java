@@ -2,6 +2,7 @@ package ru.topjava.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.topjava.UserTestData;
 import ru.topjava.model.Vote;
 import ru.topjava.util.exception.NotFoundException;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static ru.topjava.RestaurantTestData.RESTAURANT1_ID;
+import static ru.topjava.UserTestData.USER;
 import static ru.topjava.UserTestData.USER_ID;
 import static ru.topjava.VoteTestData.*;
 
@@ -80,4 +82,17 @@ public class VoteServiceTest extends AbstractServiceTest {
        List<Vote> actual =  service.getAllVoteByUser(USER_ID);
         VOTE_MATCHER.assertMatch(actual, VOTES_BY_USER1);
     }
+
+    @Test
+    public void getWithUser() {
+        Vote vote = service.getWithUser(VOTE1_ID, USER_ID);
+        VOTE_MATCHER.assertMatch(vote, VOTE1);
+        UserTestData.USER_MATCHER.assertMatch(vote.getUser(), USER);
+    }
+
+//    @Test
+//    public void getWithUserNotFound() {
+//        Assert.assertThrows(NotFoundException.class,
+//                () -> service.getWithUser(1, ADMIN_ID));
+//    }
 }

@@ -18,22 +18,22 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     @Query("DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
     int delete(@Param("id") int id, @Param("userId") int userId);
 
-
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.user.id=?1 ORDER BY v.local_date DESC")
+    @Query("SELECT v FROM Vote v  WHERE v.user.id=?1 ORDER BY v.local_date DESC")
     List<Vote> getAll(int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.user.id=?2 AND v.local_date = ?1")
+    @Query("SELECT v FROM Vote v  WHERE v.user.id=?2 AND v.local_date = ?1")
     Vote getVoteByDate(LocalDate date, int id);
 
-
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.user.id=?1 ORDER BY v.local_date DESC")
+    @Query("SELECT v FROM Vote v  WHERE v.user.id=?1 ORDER BY v.local_date DESC")
     List<Vote> getAllVoteByUser(int userId);
 
-    //
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant JOIN FETCH v.user WHERE v.user.id = :userId AND" +
+    @Query("SELECT v FROM Vote v WHERE v.user.id = :userId AND" +
             " v.local_date >= :startDate AND v.local_date <= :endDate ORDER BY v.local_date DESC, v.restaurant.name ASC ")
     List<Vote> getVoteBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("userId") int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.id=:id AND v.user.id=:userId")
+    @Query("SELECT v FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
     Vote get(@Param("id") int id, @Param("userId") int userId);
+
+    @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id=:id AND v.user.id=:userId")
+    Vote getWithUser(@Param("id") int id, @Param("userId") int userId);
 }

@@ -9,7 +9,7 @@ import static ru.topjava.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
 
-    public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingIgnoringFieldsComparator("dishes");
+    public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
 
     public static final int RESTAURANT1_ID = START_SEQ + 4;
 

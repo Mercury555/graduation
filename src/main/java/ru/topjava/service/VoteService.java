@@ -76,7 +76,7 @@ public class VoteService {
         }
     }
 
-    public Vote getWithRestaurant(int id, int userId) {
-        return voteRepository.get(id, userId);
+    public Vote getWithUser(int id, int userId) {
+        return checkNotFoundWithId(voteRepository.getWithUser(id, userId), id);
     }
 }

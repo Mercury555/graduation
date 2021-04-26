@@ -9,7 +9,7 @@ import static ru.topjava.model.AbstractBaseEntity.START_SEQ;
 
 public class DishTestData {
 
-    public static final TestMatcher<Dish> DISH_MATCHER = TestMatcher.usingIgnoringFieldsComparator("restaurant");
+    public static final TestMatcher<Dish> DISH_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Dish.class, "restaurant");
 
     public static final int DISH1_ID = START_SEQ + 8;
 
