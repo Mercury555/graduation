@@ -34,18 +34,16 @@ public class VoteService {
         this.userRepository = userRepository;
     }
 
-    public Vote save(int userId, int restaurantId) {
-        Vote vote = new Vote(LocalDate.now(), restaurantRepository.get(restaurantId));
-        vote.setRestaurant(restaurantRepository.get(restaurantId));
-        vote.setUser(userRepository.get(userId));
-        return checkNotFoundWithId(voteRepository.save(vote, userId), vote.getId());
+    public Vote create(Vote vote, int userId) {
+        Assert.notNull(vote, "vote must not be null");
+        vote.setLocal_date(LocalDate.now());
+        return voteRepository.save(vote, userId);
     }
 
-
-    public Vote update(Vote vote, int userId) throws NotFoundException {
+    public void update(Vote vote, int userId) throws NotFoundException {
         Assert.notNull(vote, "vote must not be null");
         checkModificationAllowed(vote);
-        return checkNotFoundWithId(voteRepository.save(vote, userId), vote.getId());
+        checkNotFoundWithId(voteRepository.save(vote, userId), vote.getId());
     }
 
     public void delete(int  id, int userId) {
@@ -78,5 +76,9 @@ public class VoteService {
 
     public Vote getWithUser(int id, int userId) {
         return checkNotFoundWithId(voteRepository.getWithUser(id, userId), id);
+    }
+
+    public List<Vote> getAll() {
+        return voteRepository.getAll();
     }
 }

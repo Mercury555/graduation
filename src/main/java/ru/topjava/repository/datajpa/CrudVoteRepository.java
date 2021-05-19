@@ -1,5 +1,6 @@
 package ru.topjava.repository.datajpa;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -28,7 +29,7 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     List<Vote> getAllVoteByUser(int userId);
 
     @Query("SELECT v FROM Vote v WHERE v.user.id = :userId AND" +
-            " v.local_date >= :startDate AND v.local_date <= :endDate ORDER BY v.local_date DESC, v.restaurant.name ASC ")
+            " v.local_date >= :startDate AND v.local_date <= :endDate ORDER BY v.local_date DESC, v.restaurant.name ASC")
     List<Vote> getVoteBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("userId") int userId);
 
     @Query("SELECT v FROM Vote v WHERE v.id=:id AND v.user.id=:userId")

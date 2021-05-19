@@ -28,4 +28,6 @@ public interface VoteRepository {
     default Vote getWithUser(int id, int userId){
         throw new UnsupportedOperationException();
     }
+
+    List<Vote> getAll();
 }

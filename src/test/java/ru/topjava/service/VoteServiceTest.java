@@ -1,6 +1,7 @@
 package ru.topjava.service;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.topjava.UserTestData;
 import ru.topjava.model.Vote;
@@ -10,10 +11,11 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.topjava.RestaurantTestData.RESTAURANT1_ID;
-import static ru.topjava.UserTestData.USER;
 import static ru.topjava.UserTestData.USER_ID;
+import static ru.topjava.UserTestData.USER3;
+import static ru.topjava.UserTestData.USER;
 import static ru.topjava.VoteTestData.*;
 
 public class VoteServiceTest extends AbstractServiceTest {
@@ -23,17 +25,19 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void create() {
-        Vote newVote = getNew(); // user2, RESTAURANT1, LocalDate.now()
-        Vote created = service.save(USER_ID + 2, RESTAURANT1_ID);
-        newVote.setId(created.getId());
+//        Vote created = getNew(); // user2, RESTAURANT1, LocalDate.now()
+        Vote created = service.create(getNew(), RESTAURANT1_ID);
+        int newId = created.getId();
+        Vote newVote= getNew();
+        newVote.setId(newId);
         VOTE_MATCHER.assertMatch(created, newVote);
     }
 
     @Test
     public void update() {
         Vote vote = getUpdated(); //id =100016, LocalDate.now(), RESTAURANT2
-        service.update(vote, USER_ID);
-        Vote actaul = service.get(100016, USER_ID);
+        service.update(vote, USER3.getId());
+        Vote actaul = service.get(100016, USER3.getId());
         VOTE_MATCHER.assertMatch(actaul, vote);
 
     }
@@ -68,7 +72,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void getBetween() {
         List<Vote> actual = service.getBetween(LocalDate.of(2021, Month.MAY, 28), LocalDate.of(2021, Month.MAY, 29), USER_ID + 3);
-        VOTE_MATCHER.assertMatch(actual, VOTES_BETWEEN);
+        VOTE_MATCHER.assertMatch(actual, VOTES_BETWEEN_DATE);
     }
 
     @Test
@@ -90,9 +94,9 @@ public class VoteServiceTest extends AbstractServiceTest {
         UserTestData.USER_MATCHER.assertMatch(vote.getUser(), USER);
     }
 
-//    @Test
-//    public void getWithUserNotFound() {
-//        Assert.assertThrows(NotFoundException.class,
-//                () -> service.getWithUser(1, ADMIN_ID));
-//    }
+    @Test
+    void getWithUserNotFound() {
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithUser(1, USER_ID));
+    }
 }

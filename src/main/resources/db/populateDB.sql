@@ -24,8 +24,6 @@ VALUES ('USER', 100000),
        ('USER', 100002),
        ('USER', 100003);
 
-
-
 INSERT INTO restaurants (name, description)
 VALUES ('Restaurant 1', 'sea_food'),
        ('Restaurant 2', 'sea_food'),
@@ -43,6 +41,6 @@ INSERT INTO votes (user_id, restaurant_id, local_date)
 VALUES (100000, 100004, '2020-05-30 00:00:00'),
        (100001, 100004, '2020-05-30 00:00:00'),
        (100002, 100006, '2020-05-30 00:00:00'),
-       (100000, 100004, now()),
+       (100003, 100004, now()),
        (100003, 100005, '2021-05-28 00:00:00'),
        (100003, 100005, '2021-05-29 00:00:00');

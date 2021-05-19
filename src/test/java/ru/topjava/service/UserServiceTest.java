@@ -1,7 +1,7 @@
 package ru.topjava.service;
 
-
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.topjava.VoteTestData;
 import ru.topjava.model.Role;
@@ -13,8 +13,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.topjava.UserTestData.*;
+import static ru.topjava.VoteTestData.VOTES_BETWEEN;
+import static ru.topjava.VoteTestData.VOTES_BETWEEN_ASC;
 
 public class UserServiceTest extends AbstractServiceTest {
 
@@ -30,7 +32,6 @@ public class UserServiceTest extends AbstractServiceTest {
         USER_MATCHER.assertMatch(created, newUser);
         USER_MATCHER.assertMatch(service.get(newId), newUser);
     }
-
 
     @Test
     public void testDelete() {
@@ -84,14 +85,14 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void getWithVotes() {
-        User user = service.getWithVotes(USER_ID);
-        USER_MATCHER.assertMatch(user, USER);
-        VoteTestData.VOTE_MATCHER.assertMatch(user.getVotes(), VoteTestData.VOTE1, VoteTestData.VOTE4);
+        User user = service.getWithVotes(USER_ID+3);
+        USER_MATCHER.assertMatch(user, USER3);
+        VoteTestData.VOTE_MATCHER.assertMatch(user.getVotes(), VOTES_BETWEEN_ASC);
     }
 
-//    @Test
-//    void getWithMealsNotFound() {
-//        Assertions.assertThrows(NotFoundException.class,
-//                () -> service.getWithVotes(1));
-//    }
+    @Test
+    void getWithVotesNotFound() {
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithVotes(1));
+    }
 }

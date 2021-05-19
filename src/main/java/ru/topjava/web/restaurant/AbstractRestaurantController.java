@@ -2,6 +2,7 @@ package ru.topjava.web.restaurant;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.topjava.model.Restaurant;
 import ru.topjava.service.RestaurantService;
 
@@ -10,10 +11,11 @@ import java.util.List;
 import static ru.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.topjava.util.ValidationUtil.checkNew;
 
-public class AbstractRestaurantController {
+public abstract class AbstractRestaurantController {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
+    @Autowired
     private RestaurantService service;
 
     public Restaurant get(int id) {
@@ -41,6 +43,15 @@ public class AbstractRestaurantController {
     public List<Restaurant> getAll() {
         log.info("getAll");
         return service.getAll();
+    }
+    public List<Restaurant> findByName(String name) {
+        log.info("find by name {}", name);
+        return service.getByName(name);
+    }
+
+    public Restaurant getWithDishes(int id) {
+        log.info("get with dishes {}", id);
+        return service.getWithDishes(id);
     }
 
 }

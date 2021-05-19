@@ -1,6 +1,7 @@
 package ru.topjava.service;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.topjava.DishTestData;
 import ru.topjava.model.Restaurant;
@@ -8,7 +9,7 @@ import ru.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.topjava.DishTestData.DISH1;
 import static ru.topjava.DishTestData.DISH4;
 import static ru.topjava.RestaurantTestData.*;
@@ -76,5 +77,11 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant restaurant = service.getWithDishes(RESTAURANT1_ID);
         RESTAURANT_MATCHER.assertMatch(restaurant, RESTAURANT1);
         DishTestData.DISH_MATCHER.assertMatch(restaurant.getDishes(), DISH1, DISH4);
+    }
+
+    @Test
+    public void getWithDishesNotFound(){
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithDishes(1));
     }
 }

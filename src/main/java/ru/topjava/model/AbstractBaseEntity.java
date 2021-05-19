@@ -1,11 +1,12 @@
 package ru.topjava.model;
 
 import org.hibernate.Hibernate;
+import ru.topjava.HasId;
 
 import javax.persistence.*;
 
 @MappedSuperclass
-public class AbstractBaseEntity {
+public class AbstractBaseEntity implements HasId {
     public static final int START_SEQ = 100_000;
 
     @Id
