@@ -1,0 +1,2 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7cbbfc11cdca4502899c50db977bbfe3)](https://app.codacy.com/gh/Mercury555/graduation/dashboard)
+[![Build Status](https://api.travis-ci.com/Mercury555/graduation.svg?branch=master)](https://travis-ci.com/github/Mercury555/graduation)
