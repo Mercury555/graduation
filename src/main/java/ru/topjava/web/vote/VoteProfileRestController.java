@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.topjava.model.Vote;
+import ru.topjava.model.to.VoteTo;
 
 import java.net.URI;
 import java.util.List;
@@ -29,12 +30,12 @@ public class VoteProfileRestController extends AbstractVoteController {
     }
 
     @GetMapping("/{id}")
-    public Vote get(@PathVariable int id){
+    public VoteTo get(@PathVariable int id){
        return super.get(id);
     }
 
     @GetMapping
-    public List<Vote> getAllByUser(){
+    public List<VoteTo> getAllByUser(){
         return super.getAllByUser();
     }
 

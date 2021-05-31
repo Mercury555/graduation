@@ -3,6 +3,8 @@ package ru.topjava.web.vote;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.topjava.model.Vote;
+import ru.topjava.model.to.VoteTo;
+import ru.topjava.util.VoteUtil;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class VoteAdminRestController extends AbstractVoteController {
 
     @Override
     @GetMapping("/users/{userId}")
-    public List<Vote> getAllByUser(@PathVariable int userId) {
+    public List<VoteTo> getAllByUser(@PathVariable int userId) {
         return super.getAllByUser(userId);
     }
 
@@ -35,10 +37,11 @@ public class VoteAdminRestController extends AbstractVoteController {
         return super.getWithUser(id, userId);
     }
 
-    @Override
+
     @GetMapping(value = "/{id}/users/{userId}")
-    public Vote get(@PathVariable("id") int id, @PathVariable("userId") int userId) {
-        return super.get(id, userId);
+    public VoteTo get(@PathVariable("id") int id, @PathVariable("userId") int userId) {
+       return super.get(id, userId);
+
     }
 
 }

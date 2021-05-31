@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.topjava.model.Vote;
+import ru.topjava.model.to.VoteTo;
 import ru.topjava.service.VoteService;
+import ru.topjava.util.VoteUtil;
 import ru.topjava.web.SecurityUtil;
 
 import java.util.List;
@@ -20,15 +22,15 @@ public abstract class AbstractVoteController {
     @Autowired
     private VoteService service;
 
-    public List<Vote> getAllByUser(int userId) {
+    public List<VoteTo> getAllByUser(int userId) {
         log.info("getAll for User for admin {}", userId);
-        return service.getAllVoteByUser(userId);
+        return VoteUtil.get(service.getAllVoteByUser(userId));
     }
 
-    public List<Vote> getAllByUser() {
-        int userId = SecurityUtil.authUserId();
+    public List<VoteTo> getAllByUser() {
+        int userId = SecurityUtil.authUser3Id();
         log.info("getAll for User {}", userId);
-        return service.getAllVoteByUser(userId);
+        return VoteUtil.get(service.getAllVoteByUser(userId));
     }
 
     public Vote getWithUser(int id, int userId) {
@@ -36,9 +38,9 @@ public abstract class AbstractVoteController {
         return service.getWithUser(id, userId);
     }
 
-    public Vote get(int id, int userId) {
+    public VoteTo get(int id, int userId) {
         log.info("get vote {} for User {}", id, userId);
-        return service.get(id, userId);
+        return VoteUtil.get(service.get(id, userId));
     }
 
     public void delete(int id, int userId) {
@@ -66,9 +68,9 @@ public abstract class AbstractVoteController {
         return service.getAll();
     }
 
-    public Vote get(int id) {
+    public VoteTo get(int id) {
         int userId = authUserId();
         log.info("get vote {} for User {}", id, userId);
-        return service.get(id, userId);
+        return VoteUtil.get(service.get(id, userId));
     }
 }
