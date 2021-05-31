@@ -22,8 +22,8 @@ public class VoteTestData {
     public static final Vote VOTE2 = new Vote(VOTE1_ID + 1, of(2020, Month.MAY, 30), RESTAURANT1);
     public static final Vote VOTE3 = new Vote(VOTE1_ID + 2, of(2020, Month.MAY, 30), RESTAURANT3);
     public static final Vote VOTE4 = new Vote(VOTE1_ID + 3, LocalDate.now(), RESTAURANT1);
-    public static final Vote VOTE5 = new Vote(VOTE1_ID + 4, of(2021, Month.MAY, 28), RESTAURANT2);
-    public static final Vote VOTE6 = new Vote(VOTE1_ID + 5, of(2021, Month.MAY, 29), RESTAURANT2);
+    public static final Vote VOTE5 = new Vote(VOTE1_ID + 4, of(2020, Month.MAY, 28), RESTAURANT2);
+    public static final Vote VOTE6 = new Vote(VOTE1_ID + 5, of(2020, Month.MAY, 29), RESTAURANT2);
 
     public static final List<Vote> VOTES_BETWEEN = Arrays.asList(VOTE6, VOTE5, VOTE4);
     public static final List<Vote> VOTES_BETWEEN_ASC = Arrays.asList(VOTE4, VOTE5, VOTE6);
