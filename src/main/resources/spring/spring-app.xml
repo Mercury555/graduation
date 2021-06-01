@@ -9,7 +9,8 @@
     <!--    <context:component-scan base-package="ru.**.repository"/>-->
 
     <import resource="spring-cache.xml"/>
+
     <context:component-scan base-package="ru.**.service"/>
     <context:component-scan base-package="ru.**.web"/>
-
+    <import resource="spring-security.xml"/>
 </beans>
