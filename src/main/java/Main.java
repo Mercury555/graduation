@@ -40,18 +40,18 @@ public class Main {
 //            userService.getAll().forEach(System.out::println);
 //            System.out.println("----------------------------------------------------------------");
 
-            Restaurant RESTAURANT2 = new Restaurant(100005, "Restaurant 2", "sea_food");
-            Vote vote = new Vote(of(2021, Month.MAY, 4), RESTAURANT2);
-            User USER3 = new User(100003, "User3", "user3@yandex.ru", "password", Role.USER);
-            vote.setUser(USER3);
-//        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL + "/" + RESTAURANT1_ID)
-            String jsonString = JsonUtil.writeValue(vote);
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println(jsonString);
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println("____________________________________________");
-            System.out.println(JsonUtil.readValues(jsonString, Vote.class));
-            System.out.println("____________________________________________");
+//            Restaurant RESTAURANT2 = new Restaurant(100005, "Restaurant 2", "sea_food");
+//            Vote vote = new Vote(of(2021, Month.MAY, 4), RESTAURANT2);
+//            User USER3 = new User(100003, "User3", "user3@yandex.ru", "password", Role.USER);
+//            vote.setUser(USER3);
+////        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL + "/" + RESTAURANT1_ID)
+//            String jsonString = JsonUtil.writeValue(vote);
+//            System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+//            System.out.println(jsonString);
+//            System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+//            System.out.println("____________________________________________");
+//            System.out.println(JsonUtil.readValues(jsonString, Vote.class));
+//            System.out.println("____________________________________________");
 //            System.out.println(action.toString());
 //            System.out.println("____________________________________________");
 //            Vote created = readFromJson(action, Vote.class);

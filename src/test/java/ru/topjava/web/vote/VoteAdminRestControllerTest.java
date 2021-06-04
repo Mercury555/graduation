@@ -2,14 +2,20 @@ package ru.topjava.web.vote;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.topjava.TestMatcher;
 import ru.topjava.VoteTestData;
 import ru.topjava.service.VoteService;
+import ru.topjava.util.VoteUtil;
 import ru.topjava.util.exception.NotFoundException;
 import ru.topjava.web.AbstractControllerTest;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.topjava.UserTestData.USER;
 import static ru.topjava.UserTestData.USER_ID;
@@ -34,7 +40,10 @@ class VoteAdminRestControllerTest extends AbstractControllerTest {
     void getAllByUser() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "/users/100003" ))
                 .andExpect(status().is(200))
-                .andExpect(VOTE_MATCHER.contentJson(VOTE6, VOTE5, VOTE4));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(VOTE_TO_MATCHER.contentJson(VoteUtil.get(Arrays.asList(VOTE4, VOTE6, VOTE5))));
+
+
     }
 
     @Test
@@ -53,6 +62,6 @@ class VoteAdminRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL + "/" + VOTE1_ID + "/users/" + USER_ID))
                 .andExpect(status().is(200))
                 .andDo(print())
-                .andExpect(VOTE_MATCHER.contentJson(VOTE1));
+                .andExpect(VOTE_TO_MATCHER.contentJson(VoteUtil.createTo(VOTE1)));
     }
 }

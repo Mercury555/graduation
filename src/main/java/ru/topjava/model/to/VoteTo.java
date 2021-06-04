@@ -5,18 +5,20 @@ import java.util.Objects;
 
 public class VoteTo {
 
-    private final Integer id;
+    private  Integer id;
 
-    private final LocalDate date;
+    private  LocalDate date;
 
-    private final String userEmail;
+    private  String userEmail;
 
-    private final Integer user_id;
+    private  Integer user_id;
 
-    private final String restaurant_name;
+    private  String restaurant_name;
 
-    private final Integer restaurant_id;
+    private  Integer restaurant_id;
 
+    public VoteTo() {
+    }
 
     public VoteTo(Integer id, LocalDate date, String userEmail, Integer user_id, String restaurant_name, Integer restaurant_id) {
         this.id = id;

@@ -31,17 +31,15 @@ public class Vote extends AbstractBaseEntity{
     public Vote() {
     }
 
-    public Vote(LocalDate localDate, Restaurant restaurant) {
-        this(null, localDate, restaurant);
+    public Vote(LocalDate localDate, User user, Restaurant restaurant) {
+        this(null, localDate, user, restaurant);
     }
 
-    public Vote(LocalDate localDate){
-        this(null, localDate, null);
-    }
 
-    public Vote(Integer id, LocalDate date, Restaurant restaurant) {
+    public Vote(Integer id, LocalDate date, User user, Restaurant restaurant) {
         super(id);
         this.local_date = date;
+        this.user = user;
         this.restaurant = restaurant;
     }
 
@@ -74,7 +72,7 @@ public class Vote extends AbstractBaseEntity{
         return "Vote{" +
                 "id=" + getId() +
                 ", date=" + local_date +
-                ", user=" + user +
+//                ", user=" + user +
 //                ", restaurant=" + getRestaurant() +
                 '}';
     }

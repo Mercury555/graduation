@@ -71,7 +71,7 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void getBetween() {
-        List<Vote> actual = service.getBetween(LocalDate.of(2021, Month.MAY, 28), LocalDate.of(2021, Month.MAY, 29), USER_ID + 3);
+        List<Vote> actual = service.getBetween(LocalDate.of(2020, Month.MAY, 28), LocalDate.of(2020, Month.MAY, 29), USER_ID + 3);
         VOTE_MATCHER.assertMatch(actual, VOTES_BETWEEN_DATE);
     }
 

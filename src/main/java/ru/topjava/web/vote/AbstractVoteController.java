@@ -28,7 +28,7 @@ public abstract class AbstractVoteController {
     }
 
     public List<VoteTo> getAllByUser() {
-        int userId = SecurityUtil.authUser3Id();
+        int userId = SecurityUtil.authUserId();
         log.info("getAll for User {}", userId);
         return VoteUtil.get(service.getAllVoteByUser(userId));
     }
@@ -40,7 +40,7 @@ public abstract class AbstractVoteController {
 
     public VoteTo get(int id, int userId) {
         log.info("get vote {} for User {}", id, userId);
-        return VoteUtil.get(service.get(id, userId));
+        return VoteUtil.createTo(service.get(id, userId));
     }
 
     public void delete(int id, int userId) {
@@ -56,9 +56,8 @@ public abstract class AbstractVoteController {
     }
 
     public void update(Vote vote, int id) {
-        int userId = authUser3Id();
-//        userId = 100003;
-        log.info("update vote for User {} and Restaurant {}", authUser3Id());
+        int userId = authUserId();
+        log.info("update vote for User {} and Restaurant {}", authUserId());
         assureIdConsistent(vote, id);
         service.update(vote, userId);
     }
@@ -71,6 +70,6 @@ public abstract class AbstractVoteController {
     public VoteTo get(int id) {
         int userId = authUserId();
         log.info("get vote {} for User {}", id, userId);
-        return VoteUtil.get(service.get(id, userId));
+        return VoteUtil.createTo(service.get(id, userId));
     }
 }

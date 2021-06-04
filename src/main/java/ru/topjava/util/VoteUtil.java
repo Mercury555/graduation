@@ -14,12 +14,9 @@ public class VoteUtil {
         return votes.stream().map(vote -> createTo(vote)).collect(Collectors.toList());
     }
 
-    public static VoteTo get(Vote vote) {
-
-        return createTo(vote);
-    }
 
     public static VoteTo createTo(Vote vote) {
-        return new VoteTo(vote.getId(), vote.getLocal_date(), vote.getUser().getEmail(), vote.getUser().getId(), vote.getRestaurant().getName(), vote.getRestaurant().getId());    }
+        return new VoteTo(vote.getId(), vote.getLocal_date(), vote.getUser().getEmail(), vote.getUser().getId(), vote.getRestaurant().getName(), vote.getRestaurant().getId());
+    }
 
 }
